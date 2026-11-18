@@ -1,0 +1,80 @@
+$primary: #d85b85;
+$dark: #29232a;
+
+.navbar {
+  padding: 18px 0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-size: 28px;
+  font-weight: 700;
+  color: $dark;
+
+  span {
+    color: $primary;
+  }
+}
+
+.nav-link {
+  font-weight: 500;
+  margin: 0 10px;
+
+  &.active {
+    color: $primary !important;
+  }
+}
+
+.book-btn {
+  background: $primary;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 30px;
+
+  &:hover {
+    background: #b83e6a;
+    color: white;
+  }
+}
+
+.footer {
+  background: $dark;
+  color: white;
+  padding: 55px 0 20px;
+
+  h3 span {
+    color: $primary;
+  }
+
+  h5 {
+    margin-bottom: 20px;
+  }
+
+  p {
+    color: #ccc;
+  }
+
+  a {
+    color: #ccc;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+
+  hr {
+    border-color: #777;
+  }
+}
+
+@media(max-width: 991px) {
+  .navbar-nav {
+    padding: 15px 0;
+  }
+
+  .book-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+  }
+}

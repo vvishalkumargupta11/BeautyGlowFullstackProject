@@ -1,0 +1,94 @@
+<div class="customers-container">
+  <div class="page-header">
+    <div>
+      <h2>Customer Management</h2>
+      <p>Manage your BeautyGlow customers</p>
+    </div>
+
+    <div class="header-actions">
+      <a class="dashboard-link" routerLink="/admin/dashboard">
+        <i class="bi bi-speedometer2" aria-hidden="true"></i>
+        Dashboard
+      </a>
+
+      <div class="total-card">
+        <span>Total Customers</span>
+        <h3>{{ totalCustomers() }}</h3>
+      </div>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">Loading customers...</div>
+  }
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger" role="alert">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (!loading() && !errorMessage()) {
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Customer Name</th>
+            <th>Email</th>
+            <th>Mobile</th>
+            <th>Registration Date</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (customer of customers(); track customer._id; let i = $index) {
+            <tr>
+              <td>{{ i + 1 }}</td>
+              <td><strong>{{ customer.name }}</strong></td>
+              <td>{{ customer.email }}</td>
+              <td>{{ customer.mobile }}</td>
+              <td>{{ customer.createdAt | date:'dd MMM yyyy' }}</td>
+              <td><span class="badge bg-success">Active</span></td>
+              <td>
+                <a
+                  [routerLink]="['/admin/customers', customer._id]"
+                  class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-eye" aria-hidden="true"></i>
+                  View Details
+                </a>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="6" class="text-center">No customers found.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+
+  <div class="search-box mb-3">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search by name, email or mobile..."
+    [(ngModel)]="searchText"
+  />
+</div>
+@for (customer of filteredCustomers; track customer._id; let i = $index) {
+  <div class="customer-card">
+    <h5>{{ customer.name }}</h5>
+    <p>Email: {{ customer.email }}</p>
+    <p>Mobile: {{ customer.mobile }}</p>
+    <p>Registered on: {{ customer.createdAt | date:'dd MMM yyyy' }}</p>
+  </div>
+} @empty {
+  <div class="no-customers">
+    <p>No customers found.</p>
+  </div>
+}
+</div>

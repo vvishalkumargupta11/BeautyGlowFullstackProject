@@ -1,0 +1,206 @@
+$primary: #d85b85;
+$dark: #29232a;
+
+.site-navbar {
+  padding: 18px 0;
+  background-color: #fff7fa;
+  box-shadow: 0 2px 12px rgba(125, 62, 86, 0.08);
+}
+
+.site-navbar .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.site-navbar .brand-logo {
+  display: block;
+  width: 108px;
+  height: 108px;
+  object-fit: contain;
+}
+
+.site-navbar .brand-name {
+  color: $dark;
+  font-size: 24px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.site-navbar .brand-name-accent {
+  color: $primary;
+}
+
+.site-nav-groups {
+  display: flex;
+  width: auto;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.public-nav,
+.admin-nav,
+.account-nav,
+.guest-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.admin-account-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.admin-nav {
+  padding: 3px 8px;
+  border: 1px solid #f8dce7;
+  border-radius: 999px;
+  background: #fff7fa;
+}
+
+.site-navbar .admin-nav .nav-link {
+  color: #a43e64;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.site-navbar .nav-link {
+  color: $dark;
+  font-weight: 600;
+  margin: 0;
+  padding: 8px 6px;
+  white-space: nowrap;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.site-navbar .register-link {
+  color: $primary;
+  font-weight: 700;
+}
+
+.site-navbar .register-link:hover {
+  color: darken($primary, 10%);
+}
+
+.site-navbar .logout-link {
+  border: 0;
+  border-radius: 999px;
+  background: #fff0f0;
+  color: #b42336;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.site-navbar .logout-link:hover {
+  background: #ffe0e0;
+  color: #941b2c;
+}
+
+.site-navbar .profile-link {
+  border-radius: 999px;
+  background: #f3e8ff;
+  color: #70489a;
+  font-weight: 700;
+}
+
+.site-navbar .profile-link:hover {
+  background: #e8d5fa;
+  color: #593579;
+}
+
+.site-navbar .book-btn {
+  background: $primary;
+  color: white;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 30px;
+
+  &:hover {
+    background: darken($primary, 10%);
+    color: white;
+  }
+}
+
+.app-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 18px;
+  border-left: 4px solid $primary;
+  border-radius: 8px;
+  background: white;
+  color: $dark;
+  box-shadow: 0 8px 28px rgba(41, 35, 42, 0.18);
+}
+
+.app-toast button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font-size: 22px;
+  line-height: 1;
+}
+
+@media (max-width: 1399.98px) {
+  .site-nav-groups {
+    width: 100%;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px 0;
+    margin-left: 0;
+  }
+
+  .public-nav,
+  .admin-nav,
+  .account-nav,
+  .guest-nav,
+  .admin-account-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-account-nav {
+    gap: 4px;
+  }
+
+  .admin-nav {
+    border-radius: 12px;
+  }
+
+  .site-navbar .book-btn {
+    display: inline-block;
+    margin: 6px 10px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .site-navbar .brand-logo {
+    width: 84px;
+    height: 84px;
+  }
+
+  .site-navbar .brand-name {
+    font-size: 19px;
+  }
+
+  .app-toast {
+    top: 12px;
+    right: 12px;
+    left: 12px;
+    justify-content: space-between;
+  }
+}

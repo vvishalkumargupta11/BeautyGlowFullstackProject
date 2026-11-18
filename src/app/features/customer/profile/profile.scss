@@ -1,0 +1,43 @@
+.profile-card {
+  max-width: 550px;
+  padding: 35px;
+  border-radius: 15px;
+  background: #fff;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+}
+
+.profile-header {
+  margin-bottom: 30px;
+
+  h2 {
+    color: #d85b85;
+    margin-top: 15px;
+  }
+
+  p {
+    color: #777;
+  }
+}
+
+.profile-icon {
+  font-size: 65px;
+  color: #d85b85;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+
+  strong {
+    color: #444;
+  }
+
+  span {
+    color: #777;
+    overflow-wrap: anywhere;
+    text-align: right;
+  }
+}

@@ -1,0 +1,82 @@
+<div class="customer-details-container">
+
+  <div class="page-header">
+    <div>
+      <h2>Customer Details</h2>
+      <p>View registered customer information</p>
+    </div>
+
+    <a routerLink="/admin/customers" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left"></i>
+      Back to Customers
+    </a>
+  </div>
+
+  @if (loading()) {
+    <div class="loading">
+      Loading customer details...
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <div class="alert alert-danger">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  @if (customer(); as customer) {
+
+    <div class="details-card">
+
+      <div class="profile-header">
+        <div class="profile-icon">
+          <i class="bi bi-person"></i>
+        </div>
+
+        <div>
+          <h3>{{ customer.name }}</h3>
+          <span class="badge bg-success">Customer</span>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="details-grid">
+
+        <div class="detail-item">
+          <label>Customer ID</label>
+          <p>{{ customer._id }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Full Name</label>
+          <p>{{ customer.name }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Email Address</label>
+          <p>{{ customer.email }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Mobile Number</label>
+          <p>{{ customer.mobile }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Registration Date</label>
+          <p>{{ customer.createdAt | date:'dd MMM yyyy' }}</p>
+        </div>
+
+        <div class="detail-item">
+          <label>Account Role</label>
+          <p>{{ customer.role }}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  }
+
+</div>

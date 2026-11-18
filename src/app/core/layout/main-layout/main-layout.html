@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" routerLink="/">
+      BeautyGlow
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#beautyNavbar">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="beautyNavbar">
+
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+
+        <!-- Public Navigation -->
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about">About</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/services">Services</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/gallery">Gallery</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">Contact</a>
+        </li>
+
+        <!-- Guest Navigation -->
+
+        @if (!authService.isAuthenticated()) {
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="btn btn-primary ms-lg-2" routerLink="/register">
+              Register
+            </a>
+          </li>
+
+        } @else {
+
+          <!-- Admin Navigation -->
+
+          @if (isAdmin()) {
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/dashboard">
+                <i class="bi bi-speedometer2"></i>
+                Dashboard
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/services">
+                <i class="bi bi-scissors"></i>
+                Manage Services
+              </a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/admin/customers">
+                <i class="bi bi-people"></i>
+                Customers
+              </a>
+            </li>
+
+          }
+
+          <!-- Profile -->
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/profile">
+              <i class="bi bi-person-circle"></i>
+              My Profile
+            </a>
+          </li>
+
+          <!-- Logout -->
+
+          <li class="nav-item">
+            <button
+              class="btn btn-outline-danger ms-lg-2"
+              (click)="logout()">
+              Logout
+            </button>
+          </li>
+
+        }
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>
+
+<router-outlet></router-outlet>
+
+<!-- Keep your existing footer below this section -->

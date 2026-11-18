@@ -1,0 +1,29 @@
+<section class="gallery-banner text-center">
+
+  <h1>Our Beauty Gallery</h1>
+
+  <p>Explore our beauty services and salon experience.</p>
+
+</section>
+
+<section class="container py-5">
+
+  <div class="row">
+
+    <div
+      class="col-lg-3 col-md-6 mb-4"
+      *ngFor="let image of images">
+
+      <div class="gallery-card">
+
+        <img [src]="image.url" [alt]="image.title">
+
+        <h5>{{ image.title }}</h5>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>

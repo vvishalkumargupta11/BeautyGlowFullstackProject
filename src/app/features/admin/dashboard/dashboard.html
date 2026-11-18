@@ -1,0 +1,85 @@
+<div class="admin-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <h2>BeautyGlow</h2>
+    <p class="admin-label">ADMIN PANEL</p>
+
+    <ul>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/admin/dashboard">
+          <i class="bi bi-speedometer2"></i>
+          Dashboard
+        </a>
+      </li>
+
+      <li routerLinkActive="active">
+        <a routerLink="/admin/customers">
+          <i class="bi bi-people"></i>
+          Customers
+        </a>
+      </li>
+
+      <li>
+        <i class="bi bi-calendar-check"></i>
+        Bookings
+      </li>
+
+      <li>
+        <i class="bi bi-scissors"></i>
+        Services
+      </li>
+    </ul>
+
+    <button class="logout-btn" (click)="logout()">
+      <i class="bi bi-box-arrow-right"></i>
+      Logout
+    </button>
+
+  </aside>
+
+  <!-- Main Content -->
+  <main class="dashboard-content">
+
+    <div class="dashboard-header">
+      <div>
+        <h2>Dashboard Overview</h2>
+        <p>Welcome to BeautyGlow Admin Panel</p>
+      </div>
+    </div>
+
+    @if (loading()) {
+      <div class="text-center mt-5">
+        Loading dashboard...
+      </div>
+    }
+
+    @if (errorMessage()) {
+      <div class="alert alert-danger">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if (dashboardData(); as dashboard) {
+      <div class="row">
+        <div class="col-md-4">
+          <h5>Total Customers</h5>
+          <h2>{{ dashboard.statistics.totalCustomers }}</h2>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Total Admins</h5>
+          <h2>{{ dashboard.statistics.totalAdmins }}</h2>
+        </div>
+
+        <div class="col-md-4">
+          <h5>Total Users</h5>
+          <h2>{{ dashboard.statistics.totalUsers }}</h2>
+        </div>
+      </div>
+    }
+
+  </main>
+
+</div>

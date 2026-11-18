@@ -1,0 +1,319 @@
+<!-- HERO SECTION -->
+
+<section class="hero-section">
+
+  <div class="container">
+
+    <div class="row align-items-center">
+
+      <div class="col-lg-6">
+
+        <span class="subtitle">
+          WELCOME TO BEAUTYGLOW
+        </span>
+
+        <h1>
+          Discover Your
+          <span>Natural Beauty</span>
+        </h1>
+
+        <p>
+          Experience luxury beauty treatments, professional
+          skincare and premium salon services.
+        </p>
+
+        <a routerLink="/services" class="btn primary-btn">
+          Explore Services
+        </a>
+
+        <a routerLink="/contact" class="btn secondary-btn">
+          Contact Us
+        </a>
+
+      </div>
+
+      <div class="col-lg-6">
+
+        <img
+          src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900"
+          class="hero-image"
+          alt="Luxury beauty salon">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ABOUT SECTION -->
+
+<section class="about-section section-padding">
+
+  <div class="container">
+
+    <div class="row align-items-center">
+
+      <div class="col-lg-6">
+
+        <img
+          src="https://images.unsplash.com/photo-1521590832167-7bcbfaa6381f?w=900"
+          class="about-image"
+          alt="Beauty salon interior">
+
+      </div>
+
+      <div class="col-lg-6">
+
+        <span class="subtitle">ABOUT BEAUTYGLOW</span>
+
+        <h2>
+          Beauty Is Our Passion
+        </h2>
+
+        <p>
+          At BeautyGlow, we believe every individual deserves
+          to feel beautiful and confident.
+        </p>
+
+        <p>
+          Our experienced professionals provide premium
+          beauty services using quality products and modern
+          techniques.
+        </p>
+
+        <a routerLink="/about" class="btn primary-btn">
+          Know More
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SERVICES SECTION -->
+
+<section class="services-section section-padding">
+
+  <div class="container">
+
+    <div class="text-center section-heading">
+
+      <span class="subtitle">OUR SERVICES</span>
+
+      <h2>Explore Our Beauty Services</h2>
+
+      <p>Professional treatments designed for you.</p>
+
+    </div>
+
+    <div class="row">
+
+      <div
+        class="col-lg-3 col-md-6 mb-4"
+        *ngFor="let service of services">
+
+        <div class="service-card">
+
+          <div class="service-icon">
+            <i class="bi" [ngClass]="service.icon"></i>
+          </div>
+
+          <h4>{{ service.name }}</h4>
+
+          <p>{{ service.description }}</p>
+
+          <h5>Starting ₹{{ service.price }}</h5>
+
+          <a routerLink="/services">
+            Book Now →
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- WHY CHOOSE US -->
+
+<section class="why-section section-padding">
+
+  <div class="container text-center">
+
+    <span class="subtitle">WHY CHOOSE US</span>
+
+    <h2>Your Beauty, Our Priority</h2>
+
+    <div class="row mt-5">
+
+      <div class="col-md-4 mb-4">
+        <i class="bi bi-award feature-icon"></i>
+        <h4>Expert Professionals</h4>
+        <p>Experienced beauty professionals.</p>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <i class="bi bi-heart feature-icon"></i>
+        <h4>Premium Products</h4>
+        <p>Quality products for your beauty.</p>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <i class="bi bi-stars feature-icon"></i>
+        <h4>Best Experience</h4>
+        <p>Comfortable and relaxing experience.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- SPECIAL OFFER -->
+
+<section class="offer-section">
+
+  <div class="container text-center">
+
+    <span>LIMITED TIME OFFER</span>
+
+    <h2>Get 20% OFF on Your First Visit</h2>
+
+    <p>Experience premium beauty treatments at special prices.</p>
+
+    <a routerLink="/services" class="btn offer-btn">
+      Book Your Appointment
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- TESTIMONIALS -->
+
+<section class="testimonial-section section-padding">
+
+  <div class="container">
+
+    <div class="text-center section-heading">
+
+      <span class="subtitle">TESTIMONIALS</span>
+
+      <h2>What Our Customers Say</h2>
+
+    </div>
+
+    <div class="row">
+
+      <div
+        class="col-md-4 mb-4"
+        *ngFor="let item of testimonials">
+
+        <div class="testimonial-card">
+
+          <div class="stars">
+            ★★★★★
+          </div>
+
+          <p>"{{ item.review }}"</p>
+
+          <h5>{{ item.name }}</h5>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CONTACT SECTION -->
+
+<section class="contact-section section-padding">
+
+  <div class="container text-center">
+
+    <span class="subtitle">GET IN TOUCH</span>
+
+    <h2>Ready For Your Beauty Transformation?</h2>
+
+    <p>Book your appointment with BeautyGlow today.</p>
+
+    <a routerLink="/contact" class="btn primary-btn">
+      Contact Us
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-4">
+
+        <h3>Nancy Beauty<span>Glow</span></h3>
+
+        <p>
+          Discover your natural beauty with our professional
+          salon services.
+        </p>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <h5>Quick Links</h5>
+
+        <p><a routerLink="/">Home</a></p>
+        <p><a routerLink="/services">Services</a></p>
+        <p><a routerLink="/gallery">Gallery</a></p>
+        <p><a routerLink="/contact">Contact</a></p>
+
+      </div>
+
+      <div class="col-md-4">
+
+        <h5>Contact Information</h5>
+
+        <p><i class="bi bi-telephone"></i> +91 9876543210</p>
+        <p><i class="bi bi-envelope"></i> info@beautyglow.in</p>
+        <p><i class="bi bi-geo-alt"></i> Pune, Maharashtra</p>
+
+      </div>
+
+    </div>
+
+    <hr>
+
+    <p class="text-center mb-0">
+      © 2026 BeautyGlow. All Rights Reserved.
+    </p>
+
+  </div>
+
+</footer>
