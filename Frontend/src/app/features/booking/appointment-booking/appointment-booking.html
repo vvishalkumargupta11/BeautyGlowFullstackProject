@@ -1,0 +1,145 @@
+<div class="booking-page">
+
+  <div class="container py-5">
+
+    <div class="text-center mb-5">
+
+      <span>BEAUTYGLOW</span>
+
+      <h1>Book Your Appointment</h1>
+
+      <p>Complete your details to schedule your beauty session.</p>
+
+    </div>
+
+
+    <div class="row justify-content-center">
+
+      <div class="col-lg-7">
+        <!-- Loading -->
+        <div *ngIf="loading" class="text-center py-5">
+          <div class="spinner-border text-danger"></div>
+          <p class="mt-3">Loading selected service...</p>
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="errorMessage && !service" class="text-center py-5">
+          <h3>Unable to Load Service</h3>
+          <p>{{ errorMessage }}</p>
+          <a routerLink="/services">Back to Services</a>
+        </div>
+
+        <div *ngIf="successMessage" class="alert alert-success" role="status">
+          {{ successMessage }}
+        </div>
+
+        <div *ngIf="errorMessage && service" class="alert alert-danger" role="alert">
+          {{ errorMessage }}
+        </div>
+
+        <div class="booking-card" *ngIf="service && !loading">
+
+          <h3>Selected Service</h3>
+
+          <div class="selected-service">
+
+            <div>
+
+              <h4>{{ service.name }}</h4>
+
+              <p>{{ service.duration }} Minutes</p>
+
+            </div>
+
+            <h3>₹{{ service.price }}</h3>
+
+          </div>
+
+
+          <form (ngSubmit)="bookAppointment()" #bookingForm="ngForm">
+
+            <h4>Customer Information</h4>
+
+            <div class="mb-3">
+
+              <label>Full Name</label>
+
+              <input type="text" class="form-control" name="customerName" [(ngModel)]="customerName" required>
+
+            </div>
+
+
+            <div class="mb-3">
+
+              <label>Email Address</label>
+
+              <input type="email" class="form-control" name="email" [(ngModel)]="email" required email>
+
+            </div>
+
+
+            <div class="mb-4">
+
+              <label>Mobile Number</label>
+
+              <input type="tel" class="form-control" name="mobile" [(ngModel)]="mobile" required pattern="[0-9]{10}"
+                maxlength="10">
+
+            </div>
+
+
+            <h4>Appointment Details</h4>
+
+            <div class="mb-4">
+
+              <label>Select Date</label>
+
+              <input type="date" class="form-control" name="appointmentDate" [min]="minimumDate"
+                [(ngModel)]="appointmentDate" required>
+
+            </div>
+
+
+            <label>Select Time Slot</label>
+
+            <div class="time-slots">
+
+              <button type="button" *ngFor="let time of availableTimes" [class.active]="selectedTime === time"
+                (click)="selectedTime = time">
+
+                {{ time }}
+
+              </button>
+
+            </div>
+
+
+            <button
+              type="submit"
+              class="btn confirm-btn"
+              [disabled]="!bookingForm.valid || !selectedTime || saving || !!successMessage">
+
+              <span *ngIf="saving" class="spinner-border spinner-border-sm me-2"></span>
+              {{ saving ? 'Booking...' : successMessage ? 'Booking Confirmed' : 'Confirm Booking' }}
+
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #notFound>
+
+  <div class="text-center py-5">
+    <h3>Service Not Found</h3>
+  </div>
+
+</ng-template>

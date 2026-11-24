@@ -63,3 +63,22 @@ backend/.env.*
 *.log
 .vscode/
 .idea/
+!Frontend/.vscode/
+!Frontend/.vscode/**
+
+# Frontend dependencies
+Frontend/node_modules/
+Frontend/.angular/
+Frontend/dist/
+
+# Backend dependencies and build
+backend/node_modules/
+backend/dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example

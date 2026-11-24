@@ -61,5 +61,10 @@ async restoreService(id: string) {
     { new: true }
   ).exec();
 }
-
+async getAllServicesForAdmin() {
+  return this.salonServiceModel
+    .find()
+    .sort({ createdAt: -1 })
+    .exec();
+}
 }

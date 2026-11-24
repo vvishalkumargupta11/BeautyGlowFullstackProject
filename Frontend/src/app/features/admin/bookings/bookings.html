@@ -1,0 +1,225 @@
+<div class="container-fluid py-4 bookings-page">
+
+  <!-- Page Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-1">Bookings Management</h2>
+      <p class="text-muted mb-0">View and manage all customer appointments.</p>
+    </div>
+
+    <button
+      type="button"
+      class="btn btn-pink"
+      (click)="loadBookings()"
+      [disabled]="loading() || !!updatingBookingId()">
+
+      <i class="bi bi-arrow-clockwise me-2"></i>
+      {{ loading() ? 'Refreshing...' : 'Refresh' }}
+
+    </button>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage()" class="alert alert-success alert-dismissible">
+    <i class="bi bi-check-circle me-2"></i>
+    {{ successMessage() }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage()" class="alert alert-danger">
+    <i class="bi bi-exclamation-circle me-2"></i>
+    {{ errorMessage() }}
+  </div>
+
+  <!-- Summary Card -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm summary-card">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <p class="text-muted mb-1">Total Bookings</p>
+            <h3 class="fw-bold mb-0">{{ bookings().length }}</h3>
+          </div>
+
+          <div class="summary-icon">
+            <i class="bi bi-calendar-check"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="loading()" class="text-center py-5">
+    <div class="spinner-border text-danger"></div>
+    <p class="mt-2 text-muted">Loading bookings...</p>
+  </div>
+
+  <!-- Bookings Table -->
+  <div *ngIf="!loading() && !errorMessage()" class="card border-0 shadow-sm">
+    <div class="card-body">
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle bookings-table">
+
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Customer</th>
+              <th>Service</th>
+              <th>Appointment Date</th>
+              <th>Time</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let booking of bookings(); let i = index">
+
+              <td>{{ i + 1 }}</td>
+
+              <!-- Customer -->
+              <td>
+                <div class="fw-semibold">{{ booking.customerName }}</div>
+                <small class="text-muted">{{ booking.email }}</small><br>
+                <small class="text-muted">{{ booking.mobile }}</small>
+              </td>
+
+              <!-- Service -->
+              <td>
+                <div class="d-flex align-items-center gap-2">
+
+                  <img
+                    [src]="booking.serviceId?.image || 'assets/images/default-service.jpg'"
+                    [alt]="booking.serviceId?.name || 'Service'"
+                    class="service-image">
+
+                  <div>
+                    <div class="fw-semibold">
+                      {{ booking.serviceId?.name || 'Service unavailable' }}
+                    </div>
+
+                    <small class="text-muted">
+                      {{ booking.serviceId?.category }}
+                    </small>
+                  </div>
+
+                </div>
+              </td>
+
+              <!-- Appointment Date -->
+              <td>{{ booking.appointmentDate | date:'dd MMM yyyy' }}</td>
+
+              <!-- Appointment Time -->
+              <td>{{ booking.appointmentTime }}</td>
+
+              <!-- Amount -->
+              <td class="fw-semibold">₹{{ booking.amount }}</td>
+
+              <!-- Status -->
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-warning text-dark': booking.status === 'pending',
+                    'bg-success': booking.status === 'confirmed',
+                    'bg-primary': booking.status === 'completed',
+                    'bg-danger': booking.status === 'cancelled'
+                  }">
+
+                  {{ booking.status | titlecase }}
+
+                </span>
+              </td>
+
+              <!-- Actions -->
+              <td>
+
+                <div class="booking-actions">
+
+                  <!-- Pending: Confirm -->
+                  <button
+                    *ngIf="booking.status === 'pending'"
+                    type="button"
+                    class="btn btn-sm btn-success"
+                    (click)="updateStatus(booking._id, 'confirmed')"
+                    [disabled]="!!updatingBookingId()">
+
+                    <span
+                      *ngIf="updatingBookingId() === booking._id"
+                      class="spinner-border spinner-border-sm me-1">
+                    </span>
+
+                    Confirm
+                  </button>
+
+                  <!-- Confirmed: Complete -->
+                  <button
+                    *ngIf="booking.status === 'confirmed'"
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    (click)="updateStatus(booking._id, 'completed')"
+                    [disabled]="!!updatingBookingId()">
+
+                    <span
+                      *ngIf="updatingBookingId() === booking._id"
+                      class="spinner-border spinner-border-sm me-1">
+                    </span>
+
+                    Complete
+                  </button>
+
+                  <!-- Pending / Confirmed: Cancel -->
+                  <button
+                    *ngIf="booking.status === 'pending' || booking.status === 'confirmed'"
+                    type="button"
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="updateStatus(booking._id, 'cancelled')"
+                    [disabled]="!!updatingBookingId()">
+
+                    Cancel
+                  </button>
+
+                  <!-- Completed -->
+                  <span
+                    *ngIf="booking.status === 'completed'"
+                    class="text-success small fw-semibold">
+                    <i class="bi bi-check-circle-fill me-1"></i>
+                    Finished
+                  </span>
+
+                  <!-- Cancelled -->
+                  <span
+                    *ngIf="booking.status === 'cancelled'"
+                    class="text-danger small fw-semibold">
+                    <i class="bi bi-x-circle-fill me-1"></i>
+                    Cancelled
+                  </span>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+            <!-- Empty State -->
+            <tr *ngIf="bookings().length === 0">
+              <td colspan="8" class="text-center py-4 text-muted">
+                No bookings found.
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,168 @@
+<div class="container-fluid py-4 add-service-page">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-1">Add New Service</h2>
+      <p class="text-muted mb-0">Create a new salon service</p>
+    </div>
+
+    <a routerLink="/admin/services" class="btn btn-outline-secondary">
+      <i class="bi bi-arrow-left me-2"></i>
+      Back to Services
+    </a>
+  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Form Card -->
+  <div class="card border-0 shadow-sm">
+
+    <div class="card-header bg-white py-3">
+      <h5 class="mb-0">Service Information</h5>
+    </div>
+
+    <div class="card-body p-4">
+
+      <form [formGroup]="serviceForm" (ngSubmit)="submitForm()">
+
+        <div class="row">
+
+          <!-- Service Name -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Service Name *</label>
+
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter service name" />
+
+            <small class="text-danger" *ngIf="serviceForm.get('name')?.touched && serviceForm.get('name')?.invalid">
+              Service name is required.
+            </small>
+          </div>
+
+          <!-- Category -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Category *</label>
+
+            <select class="form-select" formControlName="category">
+              <option value="">Select category</option>
+              <option value="Hair">Hair</option>
+              <option value="Skin">Skin</option>
+              <option value="Makeup">Makeup</option>
+              <option value="Nails">Nails</option>
+              <option value="Bridal">Bridal</option>
+              <option value="Other">Other</option>
+            </select>
+
+            <small class="text-danger"
+              *ngIf="serviceForm.get('category')?.touched && serviceForm.get('category')?.invalid">
+              Please select a category.
+            </small>
+          </div>
+
+          <!-- Description -->
+          <div class="col-12 mb-3">
+            <label class="form-label">Description *</label>
+
+            <textarea class="form-control" rows="3" formControlName="description"
+              placeholder="Enter service description">
+            </textarea>
+
+            <small class="text-danger"
+              *ngIf="serviceForm.get('description')?.touched && serviceForm.get('description')?.invalid">
+              Description is required.
+            </small>
+          </div>
+
+          <!-- Price -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Price (₹) *</label>
+
+            <input type="number" class="form-control" formControlName="price" min="0" placeholder="Enter price" />
+
+            <small class="text-danger" *ngIf="serviceForm.get('price')?.touched && serviceForm.get('price')?.invalid">
+              Enter a valid price.
+            </small>
+          </div>
+
+          <!-- Duration -->
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Duration (Minutes) *</label>
+
+            <input type="number" class="form-control" formControlName="duration" min="1" placeholder="Enter duration" />
+
+            <small class="text-danger"
+              *ngIf="serviceForm.get('duration')?.touched && serviceForm.get('duration')?.invalid">
+              Duration must be at least 1 minute.
+            </small>
+          </div>
+
+          <div class="col-12 mb-3">
+            <div class="image-upload-section">
+              <label for="serviceImage" class="form-label">Service Image</label>
+              <input
+                id="serviceImage"
+                type="file"
+                class="form-control"
+                accept="image/png,image/jpeg,image/webp"
+                (change)="onImageSelected($event)">
+              <div class="form-text">
+                Supported formats: JPG, PNG, or WEBP. Maximum size: 5 MB.
+              </div>
+
+              <div *ngIf="uploadingImage" class="upload-status" role="status" aria-live="polite">
+                <span class="spinner-border spinner-border-sm text-danger"></span>
+                <span>Uploading image...</span>
+              </div>
+
+              <div *ngIf="imagePreview" class="image-preview">
+                <p class="form-label mb-2">Image Preview</p>
+                <img [src]="imagePreview" alt="Service preview">
+              </div>
+            </div>
+          </div>
+
+          <!-- Benefits -->
+          <div class="col-12 mb-3">
+            <label class="form-label">Benefits</label>
+
+            <input type="text" class="form-control" formControlName="benefits"
+              placeholder="Hair nourishment, Smoothness, Shine" />
+
+            <small class="text-muted">
+              Enter multiple benefits separated by commas.
+            </small>
+          </div>
+
+        </div>
+
+        <!-- Buttons -->
+        <div class="d-flex gap-2 mt-4">
+
+          <button type="submit" class="btn btn-primary" [disabled]="loading">
+
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+
+            {{ loading ? 'Saving...' : 'Save Service' }}
+
+          </button>
+
+          <a routerLink="/admin/services" class="btn btn-outline-secondary">
+            Cancel
+          </a>
+
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+</div>

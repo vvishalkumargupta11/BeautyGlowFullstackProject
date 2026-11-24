@@ -8,6 +8,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AdminModule } from './admin/admin.module.js';
 import { SalonServicesModule } from './salon-services/salon-services.module.js';
+import { CloudinaryModule } from './cloudinary/cloudinary.module.js';
+import { BookingsModule } from './bookings/bookings.module.js';
 
 
 export const { ObserveModule, ObserveInstrument } = createObserveModule();
@@ -41,6 +43,8 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
     AuthModule,
     AdminModule,
     SalonServicesModule,
+    CloudinaryModule,
+    BookingsModule,
   ],
 })
 export class AppModule { }

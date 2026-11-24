@@ -8,7 +8,7 @@ import {
 
 import { SalonServicesController } from './salon-services.controller.js';
 import { SalonServicesService } from './salon-services.service.js';
-
+import { CloudinaryModule } from '../cloudinary/cloudinary.module.js';
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -16,7 +16,8 @@ import { SalonServicesService } from './salon-services.service.js';
         name: SalonService.name,
         schema: SalonServiceSchema
       }
-    ])
+    ]),
+    CloudinaryModule  
   ],
   controllers: [SalonServicesController],
   providers: [SalonServicesService],

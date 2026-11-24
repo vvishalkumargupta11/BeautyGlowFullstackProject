@@ -1,4 +1,12 @@
 import {
+    UseInterceptors,
+    UploadedFile
+} from '@nestjs/common';
+
+import { FileInterceptor } from '@nestjs/platform-express';
+
+import { CloudinaryService } from '../cloudinary/cloudinary.service.js';
+import {
     Controller,
     Get,
     Post,
@@ -24,7 +32,8 @@ import { UpdateSalonServiceDto } from './dto/update-salon-service.dto.js';
 export class SalonServicesController {
 
     constructor(
-        private readonly salonServicesService: SalonServicesService
+        private readonly salonServicesService: SalonServicesService,
+        private readonly cloudinaryService: CloudinaryService
     ) { }
 
     // Add new salon service
@@ -39,6 +48,45 @@ export class SalonServicesController {
             service
         };
     }
+    // Upload salon service image - Admin only
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('admin')
+    @Post('upload-image')
+    @UseInterceptors(
+        FileInterceptor('image', {
+            limits: {
+                fileSize: 5 * 1024 * 1024 // 5 MB
+            }
+        })
+    )
+    async uploadServiceImage(
+        @UploadedFile() file: Express.Multer.File
+    ) {
+
+        if (!file) {
+            throw new BadRequestException('Please select an image.');
+        }
+
+        const allowedTypes = [
+            'image/jpeg',
+            'image/png',
+            'image/webp'
+        ];
+
+        if (!allowedTypes.includes(file.mimetype)) {
+            throw new BadRequestException(
+                'Only JPG, PNG and WEBP images are allowed.'
+            );
+        }
+
+        const imageUrl = await this.cloudinaryService.uploadImage(file);
+
+        return {
+            message: 'Service image uploaded successfully',
+            imageUrl
+        };
+
+    }
 
     // Get all active salon services
     @Get()
@@ -50,6 +98,22 @@ export class SalonServicesController {
             total: services.length,
             services
         };
+    }
+    // Get all services (Active + Inactive) - Admin only
+    @Get('admin/all')
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('admin')
+    async getAllServicesForAdmin() {
+
+        const services =
+            await this.salonServicesService.getAllServicesForAdmin();
+
+        return {
+            message: 'All salon services fetched successfully',
+            total: services.length,
+            services
+        };
+
     }
 
     // Get service by ID
@@ -140,5 +204,6 @@ export class SalonServicesController {
             service
         };
     }
+
 
 }

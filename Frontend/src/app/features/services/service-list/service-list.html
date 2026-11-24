@@ -1,0 +1,74 @@
+<section class="services-banner">
+  <div class="container text-center">
+    <span>BEAUTYGLOW SERVICES</span>
+    <h1>Discover Our Beauty Services</h1>
+    <p>Professional beauty treatments designed for you.</p>
+  </div>
+</section>
+
+<section class="services-container">
+  <div class="container">
+    <div class="search-box">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search beauty services..."
+        [(ngModel)]="searchText">
+    </div>
+
+    <div class="text-center py-5" *ngIf="loading()">
+      <div class="spinner-border text-danger"></div>
+      <p class="mt-2">Loading services...</p>
+    </div>
+
+    <div class="alert alert-danger" *ngIf="!loading() && errorMessage()">
+      {{ errorMessage() }}
+    </div>
+
+    <ng-container *ngIf="!loading() && !errorMessage()">
+      <div class="category-list" *ngIf="categories().length">
+        <button
+          *ngFor="let category of categories()"
+          type="button"
+          class="category-btn"
+          [class.active]="selectedCategory() === category"
+          (click)="selectCategory(category)">
+          {{ category }}
+        </button>
+      </div>
+
+      <div class="row" *ngIf="filteredServices.length; else noServices">
+        <div
+          class="col-lg-4 col-md-6 mb-4"
+          *ngFor="let service of filteredServices">
+          <div class="service-card">
+            <img
+              [src]="service.image || 'assets/images/default-service.jpg'"
+              [alt]="service.name">
+
+            <div class="service-content">
+              <span class="category">{{ service.category }}</span>
+              <h3>{{ service.name }}</h3>
+              <p>{{ service.description }}</p>
+
+              <div class="service-info">
+                <strong>₹{{ service.price }}</strong>
+                <span>{{ service.duration }} mins</span>
+              </div>
+
+              <a [routerLink]="['/services', service._id]" class="btn book-btn">
+                View Details
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #noServices>
+        <div class="text-center py-5 text-muted">
+          No services found.
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</section>

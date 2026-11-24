@@ -1,0 +1,67 @@
+h2 {
+  color: #333;
+  font-size: 26px;
+}
+
+.text-muted {
+  font-size: 13px;
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.card-header {
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: #444;
+}
+
+.form-control,
+.form-select {
+  padding: 11px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+
+  &:focus {
+    border-color: #d85b85;
+    box-shadow: 0 0 0 0.2rem rgba(216, 91, 133, 0.15);
+  }
+}
+
+textarea {
+  resize: vertical;
+}
+
+.btn-primary {
+  background-color: #d85b85;
+  border-color: #d85b85;
+  padding: 10px 22px;
+
+  &:hover {
+    background-color: #c44873;
+    border-color: #c44873;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+  }
+}
+
+.btn-outline-secondary {
+  padding: 10px 22px;
+}
+
+@media (max-width: 768px) {
+  h2 {
+    font-size: 21px;
+  }
+
+  .card-body {
+    padding: 18px !important;
+  }
+}

@@ -10,7 +10,7 @@ const ROLES_KEY = 'roles';
 @Injectable()
 export class RolesGuard implements CanActivate {
 
-  constructor(private reflector: Reflector) {}
+  constructor(private reflector: Reflector) { }
 
   canActivate(context: ExecutionContext): boolean {
 
@@ -28,7 +28,9 @@ export class RolesGuard implements CanActivate {
 
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-
+    console.log('Required Roles:', requiredRoles);
+    console.log('Logged-in User:', user);
+    console.log('User Role:', user?.role);
     return !!user && requiredRoles.includes(user.role);
   }
 }
